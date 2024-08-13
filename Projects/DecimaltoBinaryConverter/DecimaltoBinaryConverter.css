@@ -79,7 +79,9 @@ h1 {
 }
 
 #animation-container {
+  
   margin: auto;
+  width:50%;
   max-width: 500px;
   min-height: 600px;
   position: relative;
