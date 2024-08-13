@@ -10,7 +10,11 @@
   --light-grey: #f5f6f7;
   --dark-blue: #1b1b32;
   --orange: #f1be32;
+  --yellow: #f1be32;
+  --golden-yellow: #feac32;
 }
+
+
 
 body {
   background-color: var(--dark-blue);
@@ -112,4 +116,17 @@ h1 {
   #animation-container {
     max-width: 500px;
   }
+}
+
+
+.back-button {
+  position: fixed; /* Stays in the same place when scrolling */
+  right: 20px; /* Distance from the right edge */
+  bottom: 20px; /* Distance from the bottom edge */
+  padding: 10px 20px;
+  background-color:var(--golden-yellow); /* Button background color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
