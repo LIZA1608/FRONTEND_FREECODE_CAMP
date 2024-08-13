@@ -28,22 +28,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       currentVal = nextVal;
     }
-
-    // Handle the base case explicitly
-    animationData.push({
-      inputVal: 1,
-      msg: `Binary: 1 is the base case and is returned directly.`,
-    });
-
+    if(currentVal===1){
+      const message =`Binary: 1 is the base case and is returned directly.`;
+      animationData.push({
+          inputVal: currentVal,
+          msg: message
+        });
+    }
     return animationData;
   };
 
   const showAnimation = (inputVal) => {
     result.innerText = "Call Stack Animation";
     animationContainer.innerHTML = "";
-
+  
     const animationData = generateAnimationData(inputVal);
-
+    const length=animationData.length;
+    console.log(animationData);
+  
+    // Add elements to the container
     animationData.forEach((obj, index) => {
       const addElDelay = index * 1000;
       setTimeout(() => {
@@ -54,18 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
       }, addElDelay);
     });
-
+  
+    // Update and remove elements
     animationData.reverse().forEach((obj, index) => {
-      const showMsgDelay = (index + 1) * 3000;
-      const removeElDelay = showMsgDelay + 2000;
-
+      const showMsgDelay = index * 1000 + animationData.length * 1000;
+      const removeElDelay = showMsgDelay + 1000;
+  
       setTimeout(() => {
         const element = document.getElementById(`step-${obj.inputVal}`);
         if (element) {
           element.textContent = obj.msg;
         }
       }, showMsgDelay);
-
+  
       setTimeout(() => {
         const element = document.getElementById(`step-${obj.inputVal}`);
         if (element) {
@@ -73,10 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, removeElDelay);
     });
-
-    const totalDelay = animationData.length * 2000 + 2000;
+  
+    // Show the final result
+    const totalDelay = animationData.length +2*(length)*1000; // Adjusted to ensure enough time
     setTimeout(() => {
       result.textContent = `${decimalToBinary(inputVal)}`;
+      numberInput.value = ""; // Clear the input field after the animation is complete
     }, totalDelay);
   };
 
@@ -90,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showAnimation(inputInt);
 
-    numberInput.value = "";
+    // numberInput.value = "";
   };
 
   convertBtn.addEventListener("click", checkUserInput);
