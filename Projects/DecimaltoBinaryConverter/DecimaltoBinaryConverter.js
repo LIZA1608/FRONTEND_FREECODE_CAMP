@@ -4,29 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const result = document.getElementById("result");
   const animationContainer = document.getElementById("animation-container");
 
-  const generateAnimationData = (input) => {
-    const animationData = [];
-    let currentVal = input;
- const binaryResult = decimalToBinary(input);
-
-    // Generate animation data
-    while (currentVal > 0) {
-      const nextVal = Math.floor(currentVal / 2);
-      const remainder = currentVal % 2;
-
-      const message = `Binary: ${decimalToBinary(currentVal)} and gives that value to the stack below. Then it pops off the stack.`;
-
-      animationData.unshift({
-        inputVal: currentVal, // Place the data in reverse order
-        msg: message,
-      });
-
-      currentVal = nextVal;
-    }
-
-    return animationData;
-  };
-
   const decimalToBinary = (input) => {
     if (input === 0 || input === 1) {
       return String(input);
@@ -35,15 +12,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const generateAnimationData = (input) => {
+    const animationData = [];
+    let currentVal = input;
+
+    // Generating animation data
+    while (currentVal > 1) {
+      const nextVal = Math.floor(currentVal / 2);
+      const message = `Binary: ${decimalToBinary(currentVal)} and gives that value to the stack below. Then it pops off the stack.`;
+
+      animationData.push({
+        inputVal: currentVal,
+        msg: message,
+      });
+
+      currentVal = nextVal;
+    }
+
+    // Handle the base case explicitly
+    animationData.push({
+      inputVal: 1,
+      msg: `Binary: 1 is the base case and is returned directly.`,
+    });
+
+    return animationData;
+  };
+
   const showAnimation = (inputVal) => {
     result.innerText = "Call Stack Animation";
-    animationContainer.innerHTML = ""; // Clear previous animation
+    animationContainer.innerHTML = "";
 
     const animationData = generateAnimationData(inputVal);
 
-    // Display the stack frames in the correct order
-    animationData.reverse().forEach((obj, index) => {
-      const addElDelay = index * 1000; // Delay for adding elements
+    animationData.forEach((obj, index) => {
+      const addElDelay = index * 1000;
       setTimeout(() => {
         animationContainer.innerHTML += `
           <p id="step-${obj.inputVal}" class="animation-frame">
@@ -53,22 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }, addElDelay);
     });
 
-    // Process the stack frames in reverse order
     animationData.reverse().forEach((obj, index) => {
-      const showMsgDelay = (index + 1) * 2000; // Delay for showing messages
-      const removeElDelay = showMsgDelay + 2000; // Delay for removing elements
+      const showMsgDelay = (index + 1) * 3000;
+      const removeElDelay = showMsgDelay + 2000;
 
       setTimeout(() => {
-        document.getElementById(`step-${obj.inputVal}`).textContent = obj.msg;
+        const element = document.getElementById(`step-${obj.inputVal}`);
+        if (element) {
+          element.textContent = obj.msg;
+        }
       }, showMsgDelay);
 
       setTimeout(() => {
-        document.getElementById(`step-${obj.inputVal}`).remove();
+        const element = document.getElementById(`step-${obj.inputVal}`);
+        if (element) {
+          element.remove();
+        }
       }, removeElDelay);
     });
 
-    // Display the final result after all steps are completed
-    const totalDelay = animationData.length * 2000 + 2000; // Adjust total delay for the final result
+    const totalDelay = animationData.length * 2000 + 2000;
     setTimeout(() => {
       result.textContent = `${decimalToBinary(inputVal)}`;
     }, totalDelay);
@@ -97,6 +103,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById('backButton').addEventListener('click', function() {
-  // If you want to go back in the history stack
   window.history.back();
 });
