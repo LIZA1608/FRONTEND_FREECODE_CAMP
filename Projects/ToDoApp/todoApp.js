@@ -10,6 +10,10 @@ const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
 const descriptionInput = document.getElementById("description-input");
 
+
+window.addEventListener('beforeunload', () => {
+  localStorage.removeItem('data');
+});
 const taskData = JSON.parse(localStorage.getItem("data")) || [];
 let currentTask = {};
 
