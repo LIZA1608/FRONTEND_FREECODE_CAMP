@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background-color: rgb(27, 27, 50);
+  text-align: center;
+  color: #fff;
+}
+:root {
+  --yellow: #f1be32;
+  --golden-yellow: #feac32;
+  --dark-purple: #110815;
+  --light-grey: #efefef;
+}
+button {
+  cursor: pointer;
+background-color:var(--golden-yellow);
+  border: 3px solid white;
+  color: white;
+}
+
+input {
+  background-color: rgb(10, 10, 35);
+  color: white;
+  border: 1px solid rgb(59, 59, 79);
+}
+
+.bold {
+  font-weight: bold;
+}
+.back-button {
+  position: fixed; /* Stays in the same place when scrolling */
+  right: 20px; /* Distance from the right edge */
+  bottom: 20px; /* Distance from the bottom edge */
+  padding: 10px 20px;
+  background-color:var(--golden-yellow); /* Button background color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.back-button:hover {
+  background-color: #D3D3D3; /* Darker shade for hover effect */
+}
+.footer {
+  margin-top: 10px;
+}
